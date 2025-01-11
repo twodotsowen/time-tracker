@@ -1,0 +1,12 @@
+* have the cutoff be 4:30 instead of 0:00
+* after each event, prompt for text to describe what the break was
+  - or have a key that pulls up a prompt to label the current event
+* show running timer
+  - "time spent 1:06"
+* diff against target hours in report and/or
+  * show indicator on time-tracker like:
+    - "2h+45m alotted time left for this category"
+    - "You are 0h+22m over time on this category"
+* --day timeline view with notes on the graph
+* use double quote (") as a 'copy last non-empty note of entry in this category'
+* am pm times instead of 24 hour clock
