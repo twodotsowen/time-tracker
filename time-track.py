@@ -1,7 +1,7 @@
-#!/bin/python3
+#!/opt/homebrew/bin/python3
 
 import tkinter as tk
-from tkinter import simpledialog
+from tkinter import simpledialog, ttk
 from datetime import datetime, timedelta
 
 def rgb_to_hex(rgb):
@@ -26,6 +26,8 @@ class TimeTracker(tk.Tk):
     def __init__(self):
         super().__init__()
         
+        self.tk.call('tk', 'scaling', 1.0)
+        
         self.current_char = None
         self.current_subcat_index = None
         self.current_start_time = None
@@ -35,11 +37,12 @@ class TimeTracker(tk.Tk):
         self.geometry("500x460")
         self.title("Time Tracker")
         # label
-        self.label = tk.Label(self, text="Press a letter", font=("Arial", 32))
+        self.label = ttk.Label(self, text="Press a letter", font=("Arial", 32))
         self.label.pack(padx=0, pady=0)
         # note prompt
-        self.note_prompt = tk.Label(self, text="", font=("Arial", 15),
-                                    fg="#888888", bg="#333333", anchor='n')
+        style = ttk.Style()
+        style.configure("Note.TLabel", foreground="#888888", background="#333333")
+        self.note_prompt = ttk.Label(self, text="", font=("Arial", 15), style="Note.TLabel")
         self.note_prompt.pack(fill=tk.BOTH, expand=True)
 
         # first column of labels
@@ -99,7 +102,7 @@ class TimeTracker(tk.Tk):
                 color = "#ffffff"
             else:
                 text = "Press ENTER to edit subcategory"
-        self.note_prompt.config(text=text, fg=color)
+        self.note_prompt.configure(text=text, foreground=color)
 
         
     def handle_press(self, event):
@@ -154,10 +157,10 @@ class TimeTracker(tk.Tk):
         # sub category labels
         for i in range(10):
             subcat = self.subcats[self.current_char][i] if i < len(self.subcats[self.current_char]) else None
-            msg, color = (subcat, '#000000') if subcat else ("Add Sub-Category", '#444444')
+            msg, text_color = (subcat, '#000000') if subcat else ("Add Sub-Category", '#444444')
             bg_color = '#eeeeee' if i == self.current_subcat_index else '#aaaaaa'
             label = tk.Label(self.frame2, text=f"{(i+1)%10}: {msg}",
-                             bg=bg_color, fg=color, padx=8, pady=6,
+                             bg=bg_color, foreground=text_color, padx=8, pady=6,
                              anchor="w",
                              relief=tk.RAISED)
             label.pack(fill=tk.X)
